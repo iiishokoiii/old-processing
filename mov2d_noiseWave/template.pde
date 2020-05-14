@@ -9,8 +9,8 @@ void fadeBackground(float alpha) {
   
 //--------- count frames and stop ---------
 // myFlg=true:  Export TIF files for making movie
-void frameCount(int n, boolean myFlg) {
-  println("saving frame " + frameCount + "/" + n);
+void countFrames(int n, boolean myFlg) {
+  // println("saving frame " + frameCount + "/" + n);
   if (myFlg) {
     saveFrame("frame/fr###.tif");
   } else {};

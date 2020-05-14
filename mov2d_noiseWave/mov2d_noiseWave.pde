@@ -1,14 +1,14 @@
-int numObj=80;
-int numFrames=100;
+int numObj=100;
+int numFrames=16;
 NoiseWave []  noisewave =new NoiseWave[numObj];
 color col[] = new color [numObj];
 
 void setup() {
-  size(1920, 1080);
-  frameRate(60);
+  size(960, 540);
+  frameRate(5);
   background(0);
+  smooth();
   for (int i=0; i<numObj; i++) {
-  col[i]= color(100, random(0, 255), 200, 80);
   noisewave[i]=new NoiseWave(0.2*i);
  }
 }
@@ -16,14 +16,11 @@ void setup() {
 void draw() {
   blendMode(BLEND);
   for(int i=0;  i<numObj; i++) {
-    fill(col[i]);
     noStroke();
     strokeWeight(1);
     noisewave[i].draw();
   }
-  blendMode(ADD);
-  fadeBackground(1);
-  frameCount(numFrames, false);
+  countFrames(numFrames, false);
 }
 
 // -------generate noise wave --------
@@ -31,7 +28,6 @@ class NoiseWave {
   int numPoint=ceil(width/10);
   float x[]  =new float [numPoint];
   float y[]  =new float [numPoint];
-  color col;
   float yoff ;      // 2nd dimension of perlin noise 
  
   NoiseWave(float _yoff) {
@@ -42,11 +38,17 @@ class NoiseWave {
   }
 
   void draw() {
+    pushMatrix();
+    translate(0, random(height*0.3, height*0.7));
+
     float xoff = 0.0;  
     for (int i=0; i<numPoint; i++) {
-      y[i] = map(noise(xoff, yoff), 0, 1, 100, 400); 
-      xoff += 0.03;   
+      y[i] = map(noise(xoff, yoff), 0, 1, -220, 220);
+      xoff += 0.03; //point1ごとにインクリメント
     }
+    stroke(map(noise(yoff, yoff+0.02), 0, 1,0, 240), 60, 100, 20);
+    fill(map(noise(yoff, yoff+0.02), 0, 1,0, 240), 60, 100,  20);
+
     beginShape();
     for (int i=0; i<numPoint; i++) {
       vertex(x[i], y[i]); 
@@ -56,5 +58,6 @@ class NoiseWave {
     }
     yoff += 0.02;      //frameごとにインクリメント
     endShape();
+    popMatrix();
   }
 }
