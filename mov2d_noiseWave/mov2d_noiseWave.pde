@@ -39,7 +39,7 @@ class NoiseWave {
 
   void draw() {
     pushMatrix();
-    translate(0, random(height*0.3, height*0.7));
+    translate(0, map(noise(yoff, yoff+0.02), 0, 1, height*0.3, height*0.7));
 
     float xoff = 0.0;  
     for (int i=0; i<numPoint; i++) {
