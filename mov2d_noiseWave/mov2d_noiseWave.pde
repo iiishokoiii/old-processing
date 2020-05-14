@@ -76,11 +76,8 @@ class NoiseWave {
 }
 
 color  randomCol(float _yoff) {
-  // float colR = random(160, 255);
-  // float colG = random(160, 255);
-  // color col = color (colR, colG, 80f, 90f);
-  float colR = map(noise(_yoff, _yoff+0.02), 0, 1,0, 240);
-  float colG = 60;
-  color col = color (colR, colG, 100, 20);
+  float colR = random(160, 255);
+  float colG = random(160, 255);
+  color col = color (colR, colG, 80f, 20);
   return col;
 }
