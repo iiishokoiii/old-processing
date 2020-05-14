@@ -1,7 +1,6 @@
 int numObj=100;
 int numFrames=16;
 NoiseWave []  noisewave =new NoiseWave[numObj];
-color col[] = new color [numObj];
 
 void setup() {
   size(960, 540);
@@ -9,17 +8,28 @@ void setup() {
   background(0);
   smooth();
   for (int i=0; i<numObj; i++) {
-  noisewave[i]=new NoiseWave(0.2*i);
- }
+    float yoff = 0.2*i;
+    color col = randomCol(yoff);
+    noisewave[i]=new NoiseWave(yoff);
+    noisewave[i].col =col;
+  }
 }
 
 void draw() {
+  float locationY = height/2;
   blendMode(BLEND);
+  noStroke();
+  strokeWeight(1);
+  pushMatrix();
+  translate(0, locationY);
   for(int i=0;  i<numObj; i++) {
-    noStroke();
-    strokeWeight(1);
-    noisewave[i].draw();
+    noisewave[i].display();
   }
+  for(int i=0;  i<numObj; i++) {
+    noisewave[i].update();
+  }
+  popMatrix();
+  // fadeBackground(70);
   countFrames(numFrames, false);
 }
 
@@ -28,36 +38,49 @@ class NoiseWave {
   int numPoint=ceil(width/10);
   float x[]  =new float [numPoint];
   float y[]  =new float [numPoint];
-  float yoff ;      // 2nd dimension of perlin noise 
+  float xoff;
+  float yoff;      // 2nd dimension of perlin noise 
+  color col;
  
   NoiseWave(float _yoff) {
+    xoff = 0;
     yoff=_yoff;
     for (int i=0; i<numPoint; i++) {
       x[i]= i*10;
+      xoff += 0.03;   //pointごとにインクリメント
+      y[i] = map(noise(xoff, yoff), 0, 1, -height*0.4, height*0.4);
     }
   }
-
-  void draw() {
-    pushMatrix();
-    translate(0, map(noise(yoff, yoff+0.02), 0, 1, height*0.3, height*0.7));
-
-    float xoff = 0.0;  
+  //frameごとの変化
+  void update() {
+    xoff =0;
     for (int i=0; i<numPoint; i++) {
-      y[i] = map(noise(xoff, yoff), 0, 1, -220, 220);
-      xoff += 0.03; //point1ごとにインクリメント
+      x[i] = i * 10;
+      xoff += 0.03;   //pointごとにインクリメント
+      y[i] = map(noise(xoff, yoff), 0, 1, -height*0.5, height*0.4);
     }
-    stroke(map(noise(yoff, yoff+0.02), 0, 1,0, 240), 60, 100, 20);
-    fill(map(noise(yoff, yoff+0.02), 0, 1,0, 240), 60, 100,  20);
-
+    yoff += 0.02;     //frameごとにインクリメント
+  }
+  void display() {
+    stroke(col);
+    fill(col);
     beginShape();
     for (int i=0; i<numPoint; i++) {
-      vertex(x[i], y[i]); 
+      vertex(x[i],  y[i]); 
     }
-    for (int i=numPoint-1; i>0; i--) {
-      vertex(x[i], y[i]+1); 
+     for (int i=numPoint-1; i>0; i--) {
+      vertex(x[i],  y[i]+1); 
     }
-    yoff += 0.02;      //frameごとにインクリメント
     endShape();
-    popMatrix();
   }
+}
+
+color  randomCol(float _yoff) {
+  // float colR = random(160, 255);
+  // float colG = random(160, 255);
+  // color col = color (colR, colG, 80f, 90f);
+  float colR = map(noise(_yoff, _yoff+0.02), 0, 1,0, 240);
+  float colG = 60;
+  color col = color (colR, colG, 100, 20);
+  return col;
 }
