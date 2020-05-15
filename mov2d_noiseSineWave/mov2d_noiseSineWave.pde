@@ -1,6 +1,6 @@
-int numFrames =200;
-int numPoints = 2000; 
-int numObj = 3;
+int numFrames =300;
+int numPoints = 400; 
+int numObj = 8;
 Particle[][] particle = new Particle[numPoints][numObj]; 
 float yofst[] = new float [numObj];
 void setup() {
@@ -15,16 +15,15 @@ void initialize() {
   translate(0, height/2f);
   for (int j=0; j<numObj; j++) {
     color  col = randomCol();
+    float amp = 0.1f * sqrt(j  + 1) * height;
+    float delay = PI * j / numObj;
     for (int i = 0; i < numPoints; i++) {
       float tt = 1.0f * i/numPoints;
       particle[i] [j] = new Particle(tt);
-      particle[i] [j].amp = 0.2f * sqrt(j + 1) * height;
+      particle[i] [j].amp = amp;
+      particle[i][j].delay = delay;
       particle[i] [j].col = col;
-      if (j%2 == 0) {
-        particle[i] [j].setLocationCos();
-      } else {
-        particle[i] [j].setLocationSin();
-      }
+      particle[i] [j].setLocationCos();
     }
   }
 }
@@ -38,33 +37,33 @@ void draw() {
     pushMatrix();
     translate(0, yofst[j]);
     for (int i = 0; i < numPoints; i++) {
-      particle[i] [j] .update();
+      particle[i] [j].update();
       particle[i] [j].display();
     }
     popMatrix();
   }
   fadeBackground(80f);
-  countFrames(200, false);
+  countFrames(300, false);
 }
 
 class Particle {
   float amp = height * 0.25f;
   float xmax = width;
-  float numT = 1.5f;
+  float ymax = height;
+  float ymin = -height;
+  float numT = 1f;
   float x = 0;
   float y = 0;
   float tt = 0;
   color col = color(255f, 40f);
+  float delay = 0;
+
   Particle (float _tt) {
     tt = _tt;
   }
   void setLocationCos() {
     x = tt * width;
-    y = sqrt(tt) * amp * cos(numT * TWO_PI * tt);
-  }
-  void setLocationSin() {
-    x = tt * width;
-    y = sqrt(tt) * amp * sin(numT * TWO_PI * tt);
+    y = amp * cos(numT * TWO_PI * tt + delay);
   }
   void update() {
     if (x > width) {
@@ -73,10 +72,10 @@ class Particle {
       x -= random(-1.0f, 2.5f);
     }
     y += random(-2.0f, 2.0f);
-    if (y > amp) {
-      y = amp;
-    } else if (y < -amp) {
-      y = -amp;
+    if (y > ymax) {
+      y = ymax;
+    } else if (y < ymin) {
+      y = ymin;
     }
   }
   void display() {
@@ -89,6 +88,6 @@ class Particle {
   color  randomCol() {
     float colR = random(100, 220);
     float colG = random(100, 220);
-    color col = color (colR, colG, 80f, 70f);
+    color col = color (colR, colG, 80f, 90f);
     return col;
   }
