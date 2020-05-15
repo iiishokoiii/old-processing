@@ -1,39 +1,94 @@
-int numFrames =400;
-int numObj = 10000; 
-float[] x = new float[numObj]; 
-float[] y = new float[numObj]; 
-
+int numFrames =200;
+int numPoints = 2000; 
+int numObj = 3;
+Particle[][] particle = new Particle[numPoints][numObj]; 
+float yofst[] = new float [numObj];
 void setup() {
-  size(800, 600, P2D); 
-  frameRate(50); 
+  size(960, 540, P2D); 
+  frameRate(40f); 
   background(0); 
-  for (int i = 0; i < numObj; i++) {
-    x[i] = i*width/(numObj);
-    y[i] = (height/4)*cos(i*(2*PI*12/numObj))+height/2;  
-  stroke(255); 
-  noFill(); 
-  blendMode(ADD); 
+  smooth();
+  initialize();
+  setLocationY();
+}
+void initialize() {
+  translate(0, height/2f);
+  for (int j=0; j<numObj; j++) {
+    color  col = randomCol();
+    for (int i = 0; i < numPoints; i++) {
+      float tt = 1.0f * i/numPoints;
+      particle[i] [j] = new Particle(tt);
+      particle[i] [j].amp = 0.2f * sqrt(j + 1) * height;
+      particle[i] [j].col = col;
+      if (j%2 == 0) {
+        particle[i] [j].setLocationCos();
+      } else {
+        particle[i] [j].setLocationSin();
+      }
+    }
   }
-  //mySetExportGif(20 , "test.gif") ;
+}
+void setLocationY() {
+   for (int j=0; j<numObj; j++) {
+     yofst[j] = height * random(0.4f, 0.6f);
+   }
+}
+void draw() {
+  for (int j=0; j<numObj; j++) {
+    pushMatrix();
+    translate(0, yofst[j]);
+    for (int i = 0; i < numPoints; i++) {
+      particle[i] [j] .update();
+      particle[i] [j].display();
+    }
+    popMatrix();
+  }
+  fadeBackground(80f);
+  countFrames(200, false);
 }
 
-void draw() {
-  for (int i = 0; i <numObj ; i++) {
-    translate(0.4,0);
-    point(x[i], y[i]); // 点を描画
-    if (x[i]>width) {
-      x[i] += random(-1, 2.5);   // X座標をランダムに移動
+class Particle {
+  float amp = height * 0.25f;
+  float xmax = width;
+  float numT = 1.5f;
+  float x = 0;
+  float y = 0;
+  float tt = 0;
+  color col = color(255f, 40f);
+  Particle (float _tt) {
+    tt = _tt;
+  }
+  void setLocationCos() {
+    x = tt * width;
+    y = sqrt(tt) * amp * cos(numT * TWO_PI * tt);
+  }
+  void setLocationSin() {
+    x = tt * width;
+    y = sqrt(tt) * amp * sin(numT * TWO_PI * tt);
+  }
+  void update() {
+    if (x > width) {
+      x += random(-1.0f, 2.5f);
     } else {
-      x[i] += random(-2.5, 1);    // X座標をランダムに移動
+      x -= random(-1.0f, 2.5f);
     }
-    y[i] += random(-2, 2);     // Y座標をランダムに移動
-    if (y[i]>height*3/4) {
-      y[i]=height*3/4;
-    } else if(y[i]<height*1/4) {
-      y[i]=height*1/4;
+    y += random(-2.0f, 2.0f);
+    if (y > amp) {
+      y = amp;
+    } else if (y < -amp) {
+      y = -amp;
     }
   }
-  fadeBackground(0.8);
-  countFrames(numFrames, false);
-  //exportGif(numFrames);
+  void display() {
+    blendMode(ADD);
+    strokeWeight(1);
+    stroke(col); 
+    point(x, y);
+  }
 }
+  color  randomCol() {
+    float colR = random(100, 220);
+    float colG = random(100, 220);
+    color col = color (colR, colG, 80f, 70f);
+    return col;
+  }
