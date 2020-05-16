@@ -4,7 +4,7 @@ int numPoints=3200;
  
 void setup() {
   size(960, 540, P2D);
-  background(255);
+  background(0);
   frameRate(20);
   stroke(255);
   fill(255);
