@@ -42,7 +42,8 @@ void draw() {
       float y = height*0.15*cos(TWO_PI*t)*sin(PI*2*tt)+lerp(y1(t - delay*tt, yoff1),y2(t - delay*(1-tt), yoff2), tt);
       stroke(100*cos(1.5*TWO_PI*tt)+155,120,  100*sin(1.5*TWO_PI*tt)+155, 100);
       stroke(100*cos(1.5*TWO_PI*tt)+155, 240,  255, 60);
-      float n = map(noise(xn, yn), 0, 1, 0, 80); 
+      // float n = map(noise(xn, yn), 0, 1, 0, 80); 
+      float n=0;
       point(x+n, y+n);
       xn += 0.03;
     }
