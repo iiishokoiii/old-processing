@@ -30,7 +30,7 @@ void draw() {
     float tt = 1.0*i/m;
     float delay=3.0;
     float x = lerp(x1(t - delay*tt),x2(t - delay*(1-tt)), tt);
-    float y = lerp(y1(t - delay*tt),y2(t - delay*(1-tt)), tt);
+    float y = height*0.1*cos(TWO_PI*t)*sin(PI*tt)+lerp(y1(t - delay*tt),y2(t - delay*(1-tt)), tt);
     point(x,y);
   }
   popStyle();
