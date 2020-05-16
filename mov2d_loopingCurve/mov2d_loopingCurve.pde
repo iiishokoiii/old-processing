@@ -28,8 +28,9 @@ void draw() {
   stroke(255,30);
   for(int i=0; i <=m; i++){
     float tt = 1.0*i/m;
-    float x = lerp(x1(t), x2(t), tt);
-    float y = lerp(y1(t), y2(t), tt);
+    float delay=3.0;
+    float x = lerp(x1(t - delay*tt),x2(t - delay*(1-tt)), tt);
+    float y = lerp(y1(t - delay*tt),y2(t - delay*(1-tt)), tt);
     point(x,y);
   }
   popStyle();
