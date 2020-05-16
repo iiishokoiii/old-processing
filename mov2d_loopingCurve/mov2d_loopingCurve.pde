@@ -4,7 +4,7 @@ int numPoints=3200;
  
 void setup() {
   size(960, 540, P2D);
-  background(0);
+  background(255);
   frameRate(20);
   stroke(255);
   fill(255);
@@ -40,8 +40,8 @@ void draw() {
       float tt = 1.0*i/numPoints;
       float x = lerp(x1(t - delay*tt, xoff1),x2(t - delay*(1-tt), xoff2), tt);
       float y = lerp(y1(t - delay*tt, yoff1),y2(t - delay*(1-tt), yoff2), tt);
-      stroke(100*cos(1.5*TWO_PI*tt)+155,120,  255, 100);
-      float n = map(noise(xn, yn), 0, 1, 0, 160); 
+      stroke(100*cos(1.5*TWO_PI*tt)+155,120,  100*sin(1.5*TWO_PI*tt)+155, 100);
+      float n = 0;
       point(x+n, y+n);
       xn += 0.03;
     }
