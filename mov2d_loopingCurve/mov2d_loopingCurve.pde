@@ -1,54 +1,79 @@
-int T=100;
 int numFrames=100;
+int T=numFrames;
 int numPoints=5000;
+
+float diameterX = 180f;
+float diameterY = 180f;
+float xofst1 = +0.0f * width;
+float xofst2 = -0.0f * width;
+float yofst1 = +0.0f * height;
+float yofst2 = -0.0f * height; 
+float lerpDelay = 1.0f;
+float nRotate1= 1.0f;
+float nRotate2= 4.0f;
  
 void setup() {
   size(960, 540, P2D);
+  frameRate(40f);
   background(0);
-  frameRate(40);
-  stroke(255);
-  fill(255);
+  smooth();
+  blendMode(BLEND);
+  strokeWeight(1); 
 }
-float diameterX = 180;
-float diameterY = 180;
-float x1(float t, float xoff){
-  return xoff + diameterX*cos(TWO_PI*t);
-}
-float y1(float t, float yoff){
-  return yoff + diameterY*sin(TWO_PI*t);
-}
-float x2(float t, float xoff){
-   return xoff + diameterX*cos(4*TWO_PI*t);
-}
-float y2(float t, float yoff){
-  return yoff + diameterY*sin(4*TWO_PI*t);
-}
+
 void draw() {
   translate(width/2, height/2);
-  float t = 1.0*(frameCount - 1)/T;
-  float xoff1= 0*width;
-  float xoff2= 0*width;
-  float yoff1= 0*height;
-  float yoff2= 0*height;
-  float delay=1.0;
-  float xn= 0.04;
-  float yn =0.00;
-  pushStyle();
-  strokeWeight(1);
+  float t =1.0f * (frameCount - 1)/T;
+  color col = waveCol(t, 1, 30);
+  stroke(col);
+  fill(col);
   if (frameCount <= T) {
-    for (int i=0; i <numPoints; i++) {
-      float tt = 1.0*i/numPoints;
-      float x = lerp(x1(t - delay*tt, xoff1),x2(t - delay*(1-tt), xoff2), tt);
-      float y = lerp(y1(t - delay*tt, yoff1),y2(t - delay*(1-tt), yoff2), tt);
-      stroke(100*cos(1.5*TWO_PI*tt)+155, 240,  255, 40);
-      // float n = map(noise(xn, yn), 0, 1, 0, 80); 
-      float n=0;
-      point(x+n, y+n);
-      xn += 0.03;
-    }
-    yn+=0.03;
+    drawPoint(t);
   }
-  popStyle();
   countFrames(numFrames, false);
   // countFrames(numFrames+40, true);
+}
+
+void drawPoint(float t) {
+  for (int i=0; i<numPoints; i++) {
+    float tt = 1.0f * i /numPoints; 
+    float yfactor = 0;
+    //float yfactor = cos(TWO_PI*t)* height * 0.1 * sin(PI*tt);
+    float x = lerp(x1(t - lerpDelay * tt), x2(t - lerpDelay * (1-tt)), tt);
+    float y = lerp(y1(t - lerpDelay * tt), y2(t - lerpDelay * (1-tt)), tt) + yfactor;
+    point (x, y);
+  }
+}
+float locationX(float t, float ofst, float n) {
+  return ofst + diameterX * cos(n * TWO_PI*t);
+}
+float locationY(float t, float ofst, float n) {
+  return ofst + diameterY * sin(n * TWO_PI*t);
+}
+float x1(float t) {
+  return locationX(t, xofst1, nRotate1);
+}
+float y1(float t) {
+  return locationY(t, yofst1, nRotate1);
+}
+float x2(float t) {
+  return locationX(t, xofst2, nRotate2);
+}
+float y2(float t) {
+  return locationY(t, yofst2, nRotate2);
+} 
+
+color  waveCol (float t, int n, float alpha) {
+  color col;
+  float colR = 255f;
+  float colB = 255f;
+  float colG = 255f;
+  if (n==1) {
+    colR= 100f * cos(1.50f * TWO_PI * t) + 155f;
+    colB = 240f;
+    colG = 255f;
+    alpha = 40f;
+  } 
+  col = color (colR, colB, colG, alpha);
+  return col;
 }
