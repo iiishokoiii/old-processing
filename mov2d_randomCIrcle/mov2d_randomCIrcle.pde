@@ -1,4 +1,4 @@
-int numFrames = 10;
+int numFrames = 30;
 
 void setup() {
   
@@ -32,13 +32,14 @@ void draw() {
     line(x, y, 0, 0);
   }
   popMatrix();
-  fadeBackground(10);
+  fadeBackground(0);
   countFrames(numFrames, false);
 }
 
 color  randomCol() {
   float colR = random(180, 255);
-  float colG = random(180, 255);
-  color col = color (colR, colG, 100f, 100);
+  float colG = random(100, 140);
+  float colB = random(100, 140);
+  color col = color (colR, colG, colB, 30);
   return col;
 }
