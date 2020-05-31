@@ -10,7 +10,7 @@ int col = 250;
 int colStep = -1;
 
 void setup() {
-  size(960, 640);
+  size(960, 540);
   frameRate(60);
   background(0);
   smooth();
@@ -19,7 +19,7 @@ void setup() {
 }
 
 void draw() {
-  stroke(col, 85);
+  stroke(stepCol(col));
   float x1, y1, x2 ,y2;
   float originX, originY;
   float _r = r + (100 * noise(rn));
@@ -33,7 +33,7 @@ void draw() {
   line(x1, y1, x2, y2);
 
   ang += (angleStep + 2 * noise(angn)) / 5;
-  r += 0.1;
+  r += 1;
   rn += 0.05;
   xn += 0.05;
   yn += 0.05;
@@ -47,6 +47,6 @@ void draw() {
 color  stepCol(int _col) {
   float colR = random(160, 255);
   float colB = random(160, 255);
-  color col = color (colR, _col, colB, 80);
+  color col = color (colR, _col, colB, 60);
   return col;
 }
