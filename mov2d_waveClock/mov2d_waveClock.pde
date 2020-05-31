@@ -3,14 +3,14 @@ float angleStep = 0.5;
 float ang = 0;
 float angn = 0.5;
 float r = 150;
-float rn = 0.05;
+float rn = 0.1;
 float xn = 0.05;
 float yn = 0.05;
 int col = 250;
 int colStep = -1;
 
 void setup() {
-  size(960, 540);
+  size(960, 680);
   frameRate(60);
   background(0);
   smooth();
@@ -33,13 +33,13 @@ void draw() {
   line(x1, y1, x2, y2);
 
   ang += (angleStep + 2 * noise(angn)) / 5;
-  r += 1;
+  r += 0.1;
   rn += 0.05;
   xn += 0.05;
   yn += 0.05;
   angn += 0.05;
-  if (col > 250) { colStep = -1;}
-  if (col < 70) { colStep = +1;}
+  if (col > 220) { colStep = -1;}
+  if (col < 90) { colStep = +1;}
   col += colStep;
   countFrames(numFrames, false);
 }
@@ -47,6 +47,6 @@ void draw() {
 color  stepCol(int _col) {
   float colG = random(160, 255);
   float colB = random(160, 255);
-  color col = color (_col, colG, colB, 60);
+  color col = color (_col, colG, colB, 80);
   return col;
 }
