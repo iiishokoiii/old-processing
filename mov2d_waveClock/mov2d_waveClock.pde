@@ -45,8 +45,8 @@ void draw() {
 }
 
 color  stepCol(int _col) {
-  float colR = random(160, 255);
+  float colG = random(160, 255);
   float colB = random(160, 255);
-  color col = color (colR, _col, colB, 60);
+  color col = color (_col, colG, colB, 60);
   return col;
 }
