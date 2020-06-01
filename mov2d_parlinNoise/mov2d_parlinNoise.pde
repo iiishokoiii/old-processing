@@ -12,17 +12,20 @@ void setup() {
 }
 
 void draw() {
-  for(int y=0;  y<=height; y+=1) {
+  for(int y=0;  y<=height; y+=5) {
     xn = xstart;
-    yn += 0.01;
-    for(int x=0;  x<=width; x+=1) {
-      xn += 0.01;
-      int alpha = int(noise(xn, yn) * 255);
-      stroke(0, alpha);
-      // point(x,y);
-      line(x, y, x+1, y+1);
-      // println(alpha);
+    yn += 0.1;
+    for(int x=0;  x<=width; x+=5) {
+      xn += 0.1;
+      drawPoint(x, y, noise(x,y));
     }
   }
   countFrames(numFrames, false);
+}
+
+void drawPoint(float x, float y, float noise) {
+  int alpha = int(noise * 100);
+  float len = 1 * noise;
+  stroke(0, alpha);
+  line(x, y, len, len);
 }
