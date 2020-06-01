@@ -24,8 +24,8 @@ void draw() {
 }
 
 void drawPoint(float x, float y, float noise) {
-  int alpha = int(noise * 100);
-  float len = 1 * noise;
+  int alpha = int(noise * 255);
+  float len = 10 * noise;
   stroke(0, alpha);
-  line(x, y, len, len);
+  rect(x, y, len, len);
 }
