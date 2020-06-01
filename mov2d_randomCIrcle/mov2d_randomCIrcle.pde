@@ -48,8 +48,8 @@ void drawCircle(float originX, float originY, float r, float noise) {
 
 color  randomCol(float noise) {
   float colR = int(255 * noise);
-  float colG = random(100, 140);
+  float colG = int(120 * noise);
   float colB = random(100, 140);
-  color col = color (colR, colG, colB, 50);
+  color col = color (colR, colG, colB, 60);
   return col;
 }
