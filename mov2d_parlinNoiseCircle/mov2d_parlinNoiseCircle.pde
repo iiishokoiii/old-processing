@@ -6,8 +6,8 @@ float yn = random(10);
 void setup() {
   size(960, 540);
   frameRate(60);
-  background(0);
-  blendMode(BLEND);
+  background(255);
+  // blendMode(BLEND);
   smooth();
 }
 
