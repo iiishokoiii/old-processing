@@ -20,7 +20,7 @@ void setup() {
 }
 
 void draw() {
-  stroke(col, 90);
+  stroke(col, 100);
   float x1, y1, x2 ,y2;
   float originX, originY;
   float _r = r + (150 * noise(rn));
@@ -37,9 +37,9 @@ void draw() {
   xn += 0.05;
   yn += 0.05;
   angn += 0.05;
-  if (ang > 180 || ang < 0) { angleSign *= -1;}
-  ang += angleSign * (angleStep + 2 * noise(angn)) / 3;
-  if (col > 255 || col < 120) { colStep *= -1;}
+  if (ang > 160 || ang < 0) { angleSign *= -1;}
+  ang += angleSign * (angleStep + 2 * noise(angn)) / 5;
+  if (col > 255 || col < 100) { colStep *= -1;}
   col += colStep;
   countFrames(numFrames, false);
 }
@@ -47,6 +47,6 @@ void draw() {
 color  stepCol(int _col) {
   float colG = random(160, 255);
   float colB = random(160, 255);
-  color col = color (_col, colG, colB, 80);
+  color col = color (_col, colG, colB);
   return col;
 }
