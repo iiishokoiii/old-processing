@@ -1,4 +1,4 @@
-int numFrames = 800;
+int numFrames = 1000;
 float angleStep = 0.5;
 float ang = 0;
 float angn = 0.5;
@@ -19,13 +19,13 @@ void setup() {
 }
 
 void draw() {
-  stroke(stepCol(col));
+  stroke(col, 90);
   float x1, y1, x2 ,y2;
   float originX, originY;
-  float _r = r + (100 * noise(rn));
+  float _r = r + (150 * noise(rn));
   float rad = radians(ang);
-  originX = width / 2 + (noise(xn) * 100) -50;
-  originY = height / 2 + (noise(yn) * 100) -50;
+  originX = width / 2 + (noise(xn) * 120) -60;
+  originY = height / 2 + (noise(yn) * 80) -40;
   x1 = originX + _r * cos(rad);
   y1 = originY + _r * sin(rad);
   x2 = originX - _r * cos(rad);
@@ -33,8 +33,8 @@ void draw() {
   line(x1, y1, x2, y2);
 
   ang += (angleStep + 2 * noise(angn)) / 5;
-  r += 0.1;
-  rn += 0.05;
+  r += 0.5;
+  rn += 0.1;
   xn += 0.05;
   yn += 0.05;
   angn += 0.05;
