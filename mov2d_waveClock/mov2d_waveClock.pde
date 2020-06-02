@@ -1,7 +1,8 @@
-int numFrames = 1000;
-float angleStep = 0.5;
+int numFrames = 500;
+float angleStep = 1;
 float ang = 0;
 float angn = 0.5;
+int angleSign = 1;
 float r = 150;
 float rn = 0.1;
 float xn = 0.05;
@@ -31,15 +32,14 @@ void draw() {
   x2 = originX - _r * cos(rad);
   y2 = originY - _r * sin(rad);
   line(x1, y1, x2, y2);
-
-  ang += (angleStep + 2 * noise(angn)) / 5;
-  r += 0.5;
+  r += 1;
   rn += 0.1;
   xn += 0.05;
   yn += 0.05;
   angn += 0.05;
-  if (col > 220) { colStep = -1;}
-  if (col < 90) { colStep = +1;}
+  if (ang > 180 || ang < 0) { angleSign *= -1;}
+  ang += angleSign * (angleStep + 2 * noise(angn)) / 3;
+  if (col > 255 || col < 120) { colStep *= -1;}
   col += colStep;
   countFrames(numFrames, false);
 }
