@@ -1,14 +1,16 @@
 int numFrames=1;
-float xstart = random(10);
-float xn = xstart;
-float yn = random(10);
+
+float xstart, ystart, xn, yn;
 
 void setup() {
-  size(500, 500);
-  frameRate(60);
-  background(255);
+  size(960, 540);
+  frameRate(24);
+  background(0);
   blendMode(BLEND);
   smooth();
+  xstart = random(10);
+  ystart = random(10);
+  yn = ystart;
 }
 
 void draw() {
@@ -20,6 +22,7 @@ void draw() {
       drawPoint(x, y, noise(xn, yn));
     }
   }
+  //fadeBackground(100);
   countFrames(numFrames, false);
 }
 
@@ -27,7 +30,15 @@ void drawPoint(float x, float y, float noise) {
   pushMatrix();
   translate(x, y);
   rotate(noise * radians(360));
-  stroke(0, 150);
+  stroke(randomCol(noise), 100);
   line(0, 0, 20, 0);
   popMatrix();
+}
+
+color  randomCol(float noise) {
+  float colB = int(160 * noise) + 95;
+  float colG = random(200, 250);
+  float colR = random(50, 80);
+  color col = color (colR, colG, colB);
+  return col;
 }
