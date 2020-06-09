@@ -1,4 +1,4 @@
-int numFrames=1;
+int numFrames=3;
 float xstart = random(10);
 float xn = xstart;
 float yn = random(10);
@@ -6,8 +6,7 @@ float yn = random(10);
 void setup() {
   size(960, 540);
   frameRate(60);
-  background(255);
-  // blendMode(BLEND);
+  background(0);
   smooth();
 }
 
@@ -17,9 +16,9 @@ void draw() {
     yn += 0.1;
     for(int x=0;  x<=width; x+=10) {
       xn += 0.1;
-      stroke(randomCol(noise(x,y)), 180);
-      fill(randomCol(noise(x,y)), 150);
-      drawCircle(x, y, noise(x,y), 20);
+      stroke(randomCol(noise(xn,yn)), 180);
+      fill(randomCol(noise(xn,yn)), 150);
+      drawCircle(x, y, noise(xn,yn), 20);
     }
   }
   for(int y=0;  y<=height; y+=20) {
@@ -27,16 +26,16 @@ void draw() {
     yn += 0.1;
     for(int x=0;  x<=width; x+=20) {
       xn += 0.2;
-      stroke(randomCol(noise(x,y)), 150);
-      fill(randomCol(noise(x,y)), 120);
-      drawCircle(x, y, noise(x,y), 60);
+      stroke(randomCol(noise(xn,yn)), 150);
+      fill(randomCol(noise(xn,yn)), 120);
+      drawCircle(x, y, noise(xn,yn), 60);
     }
   }
   countFrames(numFrames, false);
 }
 
 void drawCircle(float x, float y, float noise, float r) {
-  rotate(noise * radians(360));
+  rotate(noise(x,y) * radians(360));
   float _r = r * noise;
   ellipse(x, y, _r, _r);
 }
