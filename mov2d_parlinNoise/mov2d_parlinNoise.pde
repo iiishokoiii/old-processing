@@ -1,4 +1,4 @@
-int numFrames=1;
+int numFrames=50;
 
 float xstart, ystart, xn, yn;
 
@@ -10,10 +10,12 @@ void setup() {
   smooth();
   xstart = random(10);
   ystart = random(10);
-  yn = ystart;
 }
 
 void draw() {
+  fadeBackground(200);
+  // xn = xstart;
+  yn = ystart;
   for(int y=0;  y<=height; y+=5) {
     xn = xstart;
     yn += 0.1;
@@ -22,7 +24,8 @@ void draw() {
       drawPoint(x, y, noise(xn, yn));
     }
   }
-  //fadeBackground(100);
+  xstart += 0.08;
+  ystart += 0.05;
   countFrames(numFrames, false);
 }
 
