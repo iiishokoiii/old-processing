@@ -17,7 +17,7 @@ void draw() {
     yn += 0.1;
     for(int x=0;  x<=width; x+=5) {
       xn += 0.1;
-      drawPoint(x, y, noise(x,y));
+      drawPoint(x, y, noise(xn, yn));
     }
   }
   countFrames(numFrames, false);
