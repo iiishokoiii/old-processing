@@ -10,34 +10,34 @@ void setup() {
   smooth();
   xstartNoise = random(10)/10;
   ystartNoise = random(10)/10;
-  // xstart = random(10);
-  // ystart = random(10);
+  xstart = random(10);
+  ystart = random(10);
 }
 
 void draw() {
   fadeBackground(200);
-  xstart += noise(xstartNoise) * 0.2 - 0.1;
-  ystart += noise(ystartNoise) * 0.2 - 0.1;
+  // xstart += noise(xstartNoise) * 0.2 - 0.1;
+  // ystart += noise(ystartNoise) * 0.2 - 0.1;
   yn = ystart;
   for(int y=0;  y<=height; y+=5) {
     xn = xstart;
     yn += 0.1;
     for(int x=0;  x<=width; x+=5) {
       xn += 0.1;
-      drawPoint(x, y, noise(xn, yn));
+      drawPoint(x, y, noise(xn, yn), noise(xstartNoise, ystartNoise));
     }
   }
-  xstartNoise += 0.1;
-  ystartNoise += 0.1;
+  xstartNoise += 0.08;
+  ystartNoise += 0.08;
   countFrames(numFrames, false);
 }
 
-void drawPoint(float x, float y, float noise) {
+void drawPoint(float x, float y, float noise, float startNoise) {
   pushMatrix();
   translate(x, y);
-  rotate(noise * radians(360));
+  rotate(noise * radians(360) + startNoise * radians(480));
   stroke(randomCol(noise), 100);
-  line(0, 0, 20, 0);
+  line(0, 0, 40 * noise, 0);
   popMatrix();
 }
 
