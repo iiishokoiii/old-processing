@@ -1,13 +1,16 @@
 int numFrames=3;
-float xstart = random(10);
-float xn = xstart;
-float yn = random(10);
+float xstart, ystart;
+float xn, yn;
+
 
 void setup() {
   size(960, 540);
   frameRate(60);
   background(0);
   smooth();
+  xstart = random(10);
+  ystart = random(10);
+  yn = ystart;
 }
 
 void draw() {
