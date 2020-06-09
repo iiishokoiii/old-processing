@@ -14,10 +14,9 @@ void setup() {
 
 void draw() {
   fadeBackground(200);
-  // xn = xstart;
+  xn = xstart;
   yn = ystart;
   for(int y=0;  y<=height; y+=5) {
-    xn = xstart;
     yn += 0.1;
     for(int x=0;  x<=width; x+=5) {
       xn += 0.1;
