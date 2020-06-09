@@ -10,13 +10,12 @@ void setup() {
   smooth();
   xstart = random(10);
   ystart = random(10);
-  // xn = xstart;
+  xn = xstart;
   yn = ystart;
 }
 
 void draw() {
   for(int y=0;  y<=height; y+=10) {
-    xn = xstart;
     yn += 0.1;
     for(int x=0;  x<=width; x+=10) {
       xn += 0.1;
@@ -26,7 +25,6 @@ void draw() {
     }
   }
   for(int y=0;  y<=height; y+=20) {
-    xn = xstart;
     yn += 0.1;
     for(int x=0;  x<=width; x+=20) {
       xn += 0.2;
