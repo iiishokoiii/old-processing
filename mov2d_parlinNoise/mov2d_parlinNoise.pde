@@ -35,7 +35,7 @@ void draw() {
 void drawPoint(float x, float y, float noise, float startNoise) {
   pushMatrix();
   translate(x, y);
-  rotate(noise * radians(360) + startNoise * radians(480));
+  rotate(noise * radians(360) + (startNoise * 2 -1 ) * radians(200));
   stroke(randomCol(noise), 100);
   line(0, 0, 40 * noise, 0);
   popMatrix();
