@@ -12,29 +12,30 @@ void setup() {
 
   xstart = random(10);
   ystart = random(10);
-  xn = xstart;
   yn = ystart;
 }
 
 void draw() {
   for(int y=0;  y<=height; y+=10) {
+    xn = xstart;
     yn += 0.1;
     for(int x=0;  x<=width; x+=10) {
       xn += 0.1;
       stroke(randomCol(noise(xn,yn)), 180);
       fill(randomCol(noise(xn,yn)), 150);
-      drawCircle(x, y, noise(xn,yn), 40);
+      drawCircle(x, y, noise(xn,yn), 50);
     }
   }
-  for(int y=100;  y<=height; y+=180) {
-    yn += 0.1;
-    for(int x=100;  x<=width; x+=180) {
-      xn += 0.2;
-      stroke(randomCol2(noise(xn,yn)), 160);
-      fill(randomCol2(noise(xn,yn)), 140);
-      drawCircle(x, y, noise(xn,yn), 150);
-    }
-  }
+  //for(int y=0;  y<=height; y+=60) {
+  //  xn = xstart;
+  //  yn += 0.1;
+  //  for(int x=0;  x<=width; x+=60) {
+  //    xn += 0.2;
+  //    stroke(randomCol2(noise(xn,yn)), 160);
+  //    fill(randomCol2(noise(xn,yn)), 140);
+  //    drawCircle(x, y, noise(xn,yn), 60);
+  //  }
+  //}
   countFrames(numFrames, false);
 }
 
