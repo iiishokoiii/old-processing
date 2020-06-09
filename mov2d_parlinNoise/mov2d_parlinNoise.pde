@@ -1,4 +1,4 @@
-int numFrames=50;
+int numFrames=100;
 float xstart, ystart, xn, yn;
 float xstartNoise, ystartNoise;
 
@@ -15,7 +15,7 @@ void setup() {
 }
 
 void draw() {
-  fadeBackground(200);
+  fadeBackground(180);
   // xstart += noise(xstartNoise) * 0.2 - 0.1;
   // ystart += noise(ystartNoise) * 0.2 - 0.1;
   yn = ystart;
@@ -35,16 +35,16 @@ void draw() {
 void drawPoint(float x, float y, float noise, float startNoise) {
   pushMatrix();
   translate(x, y);
-  rotate(noise * radians(360) + (startNoise * 2 -1 ) * radians(200));
-  stroke(randomCol(noise), 100);
-  line(0, 0, 40 * noise, 0);
+  rotate(noise * radians(360) + (startNoise * 2 - 1) * radians(200));
+  stroke(randomCol(noise), 120);
+  line(0, 0, 60 * noise, 0);
   popMatrix();
 }
 
 color  randomCol(float noise) {
-  float colB = int(160 * noise) + 95;
-  float colG = random(200, 250);
-  float colR = random(50, 80);
+  float colB = int(60 * noise) + 80;
+  float colG = int(140 * noise) + 40;
+  float colR = int(30 * noise) + 40;
   color col = color (colR, colG, colB);
   return col;
 }
