@@ -1,6 +1,6 @@
 int numFrames=50;
-
 float xstart, ystart, xn, yn;
+float xstartNoise, ystartNoise;
 
 void setup() {
   size(960, 540);
@@ -8,23 +8,27 @@ void setup() {
   background(0);
   blendMode(BLEND);
   smooth();
-  xstart = random(10);
-  ystart = random(10);
+  xstartNoise = random(10)/10;
+  ystartNoise = random(10)/10;
+  // xstart = random(10);
+  // ystart = random(10);
 }
 
 void draw() {
   fadeBackground(200);
-  xn = xstart;
+  xstart += noise(xstartNoise) * 0.2 - 0.1;
+  ystart += noise(ystartNoise) * 0.2 - 0.1;
   yn = ystart;
   for(int y=0;  y<=height; y+=5) {
+    xn = xstart;
     yn += 0.1;
     for(int x=0;  x<=width; x+=5) {
       xn += 0.1;
       drawPoint(x, y, noise(xn, yn));
     }
   }
-  xstart += 0.08;
-  ystart += 0.05;
+  xstartNoise += 0.1;
+  ystartNoise += 0.1;
   countFrames(numFrames, false);
 }
 
