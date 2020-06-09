@@ -35,7 +35,7 @@ void draw() {
 }
 
 void drawCircle(float x, float y, float noise, float r) {
-  rotate(noise(x,y) * radians(360));
+  rotate(noise * radians(360));
   float _r = r * noise;
   ellipse(x, y, _r, _r);
 }
