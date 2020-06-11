@@ -1,4 +1,4 @@
-int numFrames=100;
+int numFrames=60;
 float xstart, ystart, xn, yn;
 float xstartNoise, ystartNoise;
 
@@ -29,7 +29,7 @@ void draw() {
   }
   xstartNoise += 0.08;
   ystartNoise += 0.08;
-  countFrames(numFrames, false);
+  countFrames(numFrames, true);
 }
 
 void drawPoint(float x, float y, float noise, float startNoise) {
@@ -42,9 +42,9 @@ void drawPoint(float x, float y, float noise, float startNoise) {
 }
 
 color  randomCol(float noise) {
-  float colB = int(60 * noise) + 80;
-  float colG = int(140 * noise) + 40;
-  float colR = int(30 * noise) + 40;
+  float colB = int(30 * noise) + 90;
+  float colG = int(160 * noise) + 60;
+  float colR = int(200 * noise) - 60;
   color col = color (colR, colG, colB);
   return col;
 }
