@@ -33,7 +33,7 @@ void drawCircle(float originX, float originY, float r, float noise) {
   float rn = 0.2;
   float _x, _y;
   int angleStart = int(360 * noise);
-  int angleEnd = int(1600 * noise);
+  int angleEnd = int(1200 * noise);
   float angleStep = 1;
   for (float ang=angleStart; ang<=angleEnd; ang+=angleStep) {
     r += 0.1;
@@ -47,9 +47,9 @@ void drawCircle(float originX, float originY, float r, float noise) {
 }
 
 color  randomCol(float noise) {
-  float colR = int(255 * noise);
+  float colR = int(220 * noise) + 40;
   float colG = random(100, 140);
   float colB = random(100, 140);
-  color col = color (colR, colG, colB, 60);
+  color col = color (colR, colG, colB, 70);
   return col;
 }
