@@ -30,7 +30,10 @@ void draw() {
   }
   popMatrix();
   // fadeBackground(70);
-  countFrames(numFrames, false);
+  if (frameCount== numFrames) {
+    saveFrame("export.png");
+    stop();
+  }
 }
 
 // -------generate noise wave --------
@@ -80,4 +83,13 @@ color  randomCol(float _yoff) {
   float colG = random(160, 255);
   color col = color (colR, colG, 80f, 20);
   return col;
+}
+
+// -------- fade baackground ---------
+void fadeBackground(float alpha) {
+  pushStyle();
+  fill(0, alpha); 
+  noStroke(); 
+  rect(0, 0, width, height); 
+  popStyle();
 }

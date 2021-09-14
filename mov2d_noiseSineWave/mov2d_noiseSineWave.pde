@@ -43,7 +43,11 @@ void draw() {
     popMatrix();
   }
   fadeBackground(80f);
-  countFrames(300, false);
+  // saveFrame("preview/frame/fr###.tif");
+  if (frameCount== 300) {
+    saveFrame("export.png");
+    stop();
+  }
 }
 
 class Particle {
@@ -85,9 +89,32 @@ class Particle {
     point(x, y);
   }
 }
-  color  randomCol() {
-    float colR = random(100, 220);
-    float colG = random(100, 220);
-    color col = color (colR, colG, 80f, 90f);
-    return col;
+
+color  randomCol() {
+  float colR = random(100, 220);
+  float colG = random(100, 220);
+  color col = color (colR, colG, 80f, 90f);
+  return col;
+}
+
+// -------- fade baackground ---------
+void fadeBackground(float alpha) {
+  pushStyle();
+  fill(0, alpha); 
+  noStroke(); 
+  rect(0, 0, width, height); 
+  popStyle();
+}
+  
+//--------- count frames and stop ---------
+// myFlg=true:  Export TIF files for making movie
+void countFrames(int n, boolean myFlg) {
+  // println("saving frame " + frameCount + "/" + n);
+  if (myFlg) {
+    saveFrame("frame/fr###.tif");
+  } else {};
+  if (frameCount== n) {
+    saveFrame("export.png");
+    stop();
   }
+}

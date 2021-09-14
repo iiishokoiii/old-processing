@@ -45,8 +45,12 @@ void draw() {
     particle[k].display();
     particle[k].update();
   }
+  println(col_bg);
   fadeBackground(col_bg);
-  countFrames(numFrames, false);
+  if (frameCount== numFrames) {
+    saveFrame("export.png");
+    stop();
+  }
 }
 
 class NoiseWaveCircle{
@@ -97,4 +101,38 @@ color randomCol(float alpha) {
   float colB = random(150f, 240f);
   color col = color (colR, 80f, colB, alpha);
   return col;
+}
+
+// -------- Particle ---------
+class Particle {
+  PVector  location;
+  color col;
+  Particle () {
+    location = new PVector(width/2, height/2);
+  }
+  void setLocation() {
+    location.x = random(0, width);
+    location.y = random(0, height);
+  }
+  void update() {
+     location.x+= random(-5.0f, 5.0f);
+     location.y += random(-5.0f, 5.0f);
+  }
+  void display() {
+    pushStyle();
+    blendMode(ADD);
+    strokeWeight(3);
+    stroke(col); 
+    point(location.x, location.y);
+    popStyle();
+  }
+}
+
+// -------- fade baackground ---------
+void fadeBackground(float alpha) {
+  pushStyle();
+  fill(0, alpha); 
+  noStroke(); 
+  rect(0, 0, width, height); 
+  popStyle();
 }

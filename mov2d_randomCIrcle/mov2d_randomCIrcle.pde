@@ -26,7 +26,10 @@ void draw() {
     }
   }
   // fadeBackground(0);
-  countFrames(numFrames, false);
+  if (frameCount== numFrames) {
+    saveFrame("export.png");
+    stop();
+  }
 }
 
 void drawCircle(float originX, float originY, float r, float noise) {
@@ -52,4 +55,13 @@ color  randomCol(float noise) {
   float colB = random(100, 140);
   color col = color (colR, colG, colB, 70);
   return col;
+}
+
+// -------- fade baackground ---------
+void fadeBackground(float alpha) {
+  pushStyle();
+  fill(0, alpha); 
+  noStroke(); 
+  rect(0, 0, width, height); 
+  popStyle();
 }
