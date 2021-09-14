@@ -15,7 +15,7 @@ void countFrames(int n, boolean myFlg) {
     saveFrame("frame/fr###.tif");
   } else {};
   if (frameCount== n) {
-    saveFrame("fr###.png");
+    saveFrame("export.png");
     stop();
   }
 }
