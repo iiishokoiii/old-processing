@@ -30,7 +30,7 @@ void draw() {
   if (frameCount <= T) {
     drawPoint(t);
   }
-  countFrames(numFrames, false);
+  countFrames(numFrames, true);
   // countFrames(numFrames+40, true);
 }
 
@@ -76,4 +76,25 @@ color  waveCol (float t, int n, float alpha) {
   } 
   col = color (colR, colB, colG, alpha);
   return col;
+}
+
+// -------- fade baackground ---------
+void fadeBackground(float alpha) {
+  pushStyle();
+  fill(0, alpha); 
+  noStroke(); 
+  rect(0, 0, width, height); 
+  popStyle();
+}
+  
+//--------- count frames and stop ---------
+// myFlg=true:  Export TIF files for making movie
+void countFrames(int n, boolean myFlg) {
+  if (myFlg) {
+    saveFrame("preview/frame/fr###.tif");
+  } else {};
+  if (frameCount== n) {
+    saveFrame("export.png");
+    stop();
+  }
 }

@@ -21,7 +21,7 @@ void draw(){
     recs[i].draw();
   }
   if(frameCount == numFrames) {
-    saveFrame("fr###.png");
+    saveFrame("export.png");
     stop();
   }
 }

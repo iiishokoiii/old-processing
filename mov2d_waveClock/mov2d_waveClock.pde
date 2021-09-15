@@ -50,3 +50,24 @@ color  stepCol(int _col) {
   color col = color (_col, colG, colB);
   return col;
 }
+
+// -------- fade baackground ---------
+void fadeBackground(float alpha) {
+  pushStyle();
+  fill(0, alpha); 
+  noStroke(); 
+  rect(0, 0, width, height); 
+  popStyle();
+}
+  
+//--------- count frames and stop ---------
+// myFlg=true:  Export TIF files for making movie
+void countFrames(int n, boolean myFlg) {
+  if (myFlg) {
+    saveFrame("frame/fr###.tif");
+  } else {};
+  if (frameCount== n) {
+    saveFrame("export.png");
+    stop();
+  }
+}
